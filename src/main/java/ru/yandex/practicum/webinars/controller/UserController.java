@@ -10,17 +10,24 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.yandex.practicum.webinars.model.User;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.Comparator;
 
 @Slf4j
 @RestController
 @RequestMapping("/users")
 public class UserController {
-    private final Map<Integer, User> userById = new HashMap<>();
-    private int idGenerator = 1;
+    private final Map<Integer, User> userById = new HashMap<>(Map.of(1, new User(1,"admin","admin@yandex.ru","password")));
+    private int idGenerator = 2;
+
+    @GetMapping(value = "/sorted")
+    public List<User> getAllUsersSortedByLogin() {
+        return userById.values().stream().sorted()
+                .sorted(Comparator.comparing(User::getLogin)).collect(Collectors.toList());
+    }
 
     @PostMapping()
     public User register(@RequestBody @Valid User user) {
@@ -37,7 +44,7 @@ public class UserController {
 
     @GetMapping()
     public List<User> getAllUsers() {
-        return new ArrayList<>(userById.values());
+        return userById.values().stream().filter(user -> user.getId() != 1).collect(Collectors.toList());
     }
 
     @PutMapping
