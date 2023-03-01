@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.yandex.practicum.webinars.model.User;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,7 +23,7 @@ public class UserController {
     private int idGenerator = 2;
 
     @GetMapping(value = "/sorted")
-    public List<User> findAllUsersSortedByLogin() {
+    public List<User> getAllUsersSortedByLogin() {
         return userById.values().stream().sorted()
                 .sorted(Comparator.comparing(User::getLogin)).collect(Collectors.toList());
     }
