@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -22,7 +21,6 @@ public class UserController {
 
     @PostMapping
     public User createUser(@RequestBody @Validated(UpdateGroup.class) User user) {
-//        validateUser(user);
         user.setId(idGenerator++);
         users.put(user.getId(), user);
         return user;
