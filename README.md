@@ -1,2 +1,1 @@
-# java-filmorate
-Template repository for Filmorate project.
+Демонстрационный проект для вебинара 9 спринта
